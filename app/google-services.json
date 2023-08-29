@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385175841653",
+    "project_id": "expoyou-ee16f",
+    "storage_bucket": "expoyou-ee16f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385175841653:android:96c4b64a99e8670b8d813c",
+        "android_client_info": {
+          "package_name": "com.example.gigachat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385175841653-mp80vg6jbqq9u35oegrgd4b3p4ijgbok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnvkkxWcQuQPhWs2PmeN3RIQ2stgxHThQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385175841653-mp80vg6jbqq9u35oegrgd4b3p4ijgbok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

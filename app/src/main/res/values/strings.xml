@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">Gigachat</string>
+    <string name="app_name">GigaChat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="terms_and_conditions">Term And Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="logo">Logo</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enterotp">Enter Otp</string>
+    <string name="verify_otp">Next</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="send_otp">Next</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="term_condition_text">I accept Term and conditions and Privacy Policy</string>
+    <string name="gigachat_need_to_verify_your_account">Gigachat need to verify your account</string>
+    <string name="bio">Bio</string>
+    <string name="name">Name</string>
+    <string name="this_name_and_bio_will_be_visible_to_anyone_you_chat_with">• This name and bio will be visible to anyone you chat with.</string>
 </resources>
