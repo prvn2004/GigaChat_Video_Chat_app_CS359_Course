@@ -1,9 +1,9 @@
-package com.example.gigachat.Utlilities.preferenceManagers
+package com.example.gigachat.utlilities.preferenceManagers
 
 import android.content.Context
 import android.content.SharedPreferences
 
-class UserProfilePreferenceManager(context: Context) {
+class UserProfilePreferenceManager(val context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
         "Authentication",
         Context.MODE_PRIVATE
@@ -27,9 +27,29 @@ class UserProfilePreferenceManager(context: Context) {
         return sharedPreferences.getString("User_Name", "").toString() ?: ""
     }
 
-    fun clearPhoneNumber() {
-        editor.remove("User_Phone_Number")
+    fun saveUserBio(UserBio: String) {
+        editor.putString("User_Bio", UserBio)
         editor.apply()
     }
 
+    fun getUserBio(): String {
+        return sharedPreferences.getString("User_Bio", "").toString() ?: ""
+    }
+
+    fun saveUserImage(UserImage : String){
+        editor.putString("User_Image", UserImage)
+        editor.apply()
+    }
+
+    fun getUserImage() : String{
+        return sharedPreferences.getString("User_Image", "").toString() ?: ""
+    }
+
+    fun clearAllPref() {
+        editor.remove("User_Phone_Number")
+        editor.remove("User_Name")
+        editor.remove("User_Bio")
+        editor.remove("User_Image")
+        editor.apply()
+    }
 }

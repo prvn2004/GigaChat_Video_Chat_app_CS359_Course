@@ -3,9 +3,11 @@ package com.example.gigachat.authentication
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,15 +16,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gigachat.MainActivity
-import com.example.gigachat.Utlilities.permissionManagers.PermissionChecker
-import com.example.gigachat.Utlilities.permissionManagers.PermissionRequester
-import com.example.gigachat.Utlilities.preferenceManagers.AuthenticationPreferenceManager
-import com.example.gigachat.Utlilities.preferenceManagers.UserProfilePreferenceManager
+import com.example.gigachat.utlilities.imageUtilities.ImageEditors
+import com.example.gigachat.utlilities.permissionManagers.PermissionChecker
+import com.example.gigachat.utlilities.permissionManagers.PermissionRequester
+import com.example.gigachat.utlilities.preferenceManagers.AuthenticationPreferenceManager
+import com.example.gigachat.utlilities.preferenceManagers.UserProfilePreferenceManager
 import com.example.gigachat.databinding.FragmentUserprofileInitialisationBinding
+import com.example.gigachat.utlilities.imageUtilities.ImageTransitManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 import java.util.UUID
 
 class UserprofileInitialisationFragment : Fragment() {
@@ -30,7 +34,9 @@ class UserprofileInitialisationFragment : Fragment() {
     private lateinit var PermissionChecker: PermissionChecker
     private lateinit var PermissionRequester: PermissionRequester
     private lateinit var UserProfilePreferenceManager: UserProfilePreferenceManager
-    private lateinit var AuthenticationPreferenceManager : AuthenticationPreferenceManager
+    private lateinit var AuthenticationPreferenceManager: AuthenticationPreferenceManager
+    private lateinit var imageEditors: ImageEditors
+    private lateinit var ImageTransitManager: ImageTransitManager
 
     private val contactPermissionCode = 101
 
@@ -57,6 +63,8 @@ class UserprofileInitialisationFragment : Fragment() {
         PermissionRequester = PermissionRequester(requireContext(), requireActivity())
         UserProfilePreferenceManager = UserProfilePreferenceManager(requireContext())
         AuthenticationPreferenceManager = AuthenticationPreferenceManager(requireContext())
+        imageEditors = ImageEditors(requireContext())
+        ImageTransitManager = ImageTransitManager(requireContext())
 
         CheckContactPermission()
 
@@ -92,44 +100,39 @@ class UserprofileInitialisationFragment : Fragment() {
             binding.profileImage.setImageURI(selectedImageUri)
 
             // Upload the selected image to Firebase Storage
-            uploadImageToStorage(selectedImageUri)
+            ImageTransitManager.uploadImageToStorage(selectedImageUri!!,
+                imageEditors.resizeImage(selectedImageUri!!),
+                onSuccess = {
+                    UserProfilePreferenceManager.saveUserImage(it)
+                    ImageTransitManager.UpdateProfileImageInfo(it, onSuccess = {
+                        if (progressDialog.isShowing) progressDialog.dismiss()
+                    }, onFailure = {
+                        if (progressDialog.isShowing) progressDialog.dismiss()
+                    })
+                },
+                onFailure = {
+                    Log.e(ContentValues.TAG, "Error uploading resized image: ${it.message}")
+                })
         }
     }
 
-    private fun uploadImageToStorage(imageUri: Uri?) {
-        if (imageUri != null) {
-            val storageRef = FirebaseStorage.getInstance().reference
-            val imageRef = storageRef.child("Profile/${UUID.randomUUID()}")
-
-            imageRef.putFile(imageUri)
-                .addOnSuccessListener { taskSnapshot ->
-                    imageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                        val imageUrl = downloadUri.toString()
-
-                        UpdatePofileImageInfo(imageUrl)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    // Handle errors here
-                    Log.e(TAG, "Error uploading image: ${exception.message}")
-                }
-        }
-    }
     fun CheckContactPermission() {
         if (!PermissionChecker.CheckContactPermission()) {
             showPermissionExplanationDialog()
         }
     }
 
+
     private fun UpdateUserInfo(userName: String, userBio: String) {
         val data = HashMap<String, Any>()
         data["UserName"] = userName
         data["UserBio"] = userBio
-        data["ProfileUrl"] = ""
+        data["AccountStatus"] = true
 
         val userDocRef = firestore.collection("Users").document(firebaseAuth.currentUser?.uid ?: "")
         userDocRef.update(data).addOnSuccessListener {
             UserProfilePreferenceManager.saveUserName(userName)
+            UserProfilePreferenceManager.saveUserBio(userBio)
             AuthenticationPreferenceManager.saveCurrentProfileStatus(true)
 
             MoveToActivity()
@@ -141,22 +144,6 @@ class UserprofileInitialisationFragment : Fragment() {
                 if (progressDialog.isShowing) progressDialog.dismiss()
             }
     }
-
-    private fun UpdatePofileImageInfo(imageUrl: String) {
-        val data = HashMap<String, Any>()
-        data["ProfileUrl"] = imageUrl
-
-        val userDocRef = firestore.collection("Users").document(firebaseAuth.currentUser?.uid ?: "")
-        userDocRef.update(data).addOnSuccessListener {
-            Log.d(TAG, "Document updated successfully!")
-            if (progressDialog.isShowing) progressDialog.dismiss()
-        }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error updating document", e)
-                if (progressDialog.isShowing) progressDialog.dismiss()
-            }
-    }
-
 
 
     private fun showPermissionExplanationDialog() {
@@ -176,7 +163,7 @@ class UserprofileInitialisationFragment : Fragment() {
         dialog.show()
     }
 
-    fun MoveToActivity(){
+    fun MoveToActivity() {
         val intent = Intent(requireActivity(), MainActivity()::class.java)
         startActivity(intent)
         requireActivity().finish()

@@ -156,4 +156,6 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="light_grey">#999999</color>
+    <color name="top_dark">#1D2B34</color>
+    <color name="bottom_dark">#101A22</color>
 </resources>

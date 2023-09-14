@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.gigachat.MainActivity
 import com.example.gigachat.R
-import com.example.gigachat.Utlilities.preferenceManagers.AuthenticationPreferenceManager
+import com.example.gigachat.utlilities.preferenceManagers.AuthenticationPreferenceManager
 import com.example.gigachat.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var AuthPreferenceManager: AuthenticationPreferenceManager
@@ -35,6 +35,11 @@ class LoginActivity : AppCompatActivity() {
 
 //        showFragment(LoginFragment())
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
     }
 
     fun moveToActivity(){

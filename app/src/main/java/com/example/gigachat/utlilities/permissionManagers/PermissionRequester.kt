@@ -1,9 +1,8 @@
-package com.example.gigachat.Utlilities.permissionManagers
+package com.example.gigachat.utlilities.permissionManagers
 
 import android.app.Activity
 import android.content.Context
 import androidx.core.app.ActivityCompat
-import com.google.firebase.auth.ktx.actionCodeSettings
 
 class PermissionRequester(val context: Context, val activity: Activity) {
      fun requestContactPermission(contactPermissionCode: Int) {

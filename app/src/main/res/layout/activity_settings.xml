@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container"
     android:background="@color/top_dark"
-    tools:context=".authentication.AuthenticationActivity">
+    android:id="@+id/settings_container"
+    tools:context=".settings.SettingsActivity">
 
 
 

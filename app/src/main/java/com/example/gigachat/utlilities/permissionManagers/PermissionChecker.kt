@@ -1,9 +1,8 @@
-package com.example.gigachat.Utlilities.permissionManagers
+package com.example.gigachat.utlilities.permissionManagers
 
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import androidx.core.content.contentValuesOf
 
 class PermissionChecker(val context: Context) {
     fun CheckContactPermission() : Boolean{

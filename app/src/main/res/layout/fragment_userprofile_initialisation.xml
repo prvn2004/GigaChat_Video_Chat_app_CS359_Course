@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/top_dark"
     tools:context=".authentication.UserprofileInitialisationFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -25,7 +26,9 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:textSize="16sp"
+        android:textColorHint="@color/white"
         android:inputType="text"
+        android:textColor="@color/white"
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="@+id/profile_image"
         app:layout_constraintHorizontal_bias="0.498"
@@ -42,6 +45,8 @@
         android:ems="10"
         android:hint="@string/bio"
         android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/profile_image"
         app:layout_constraintStart_toStartOf="@+id/profile_image"
@@ -54,6 +59,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="100dp"
         android:text="@string/verify_otp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/top_dark"
     android:padding="16dp"
     android:gravity="center">
 
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:hint="@string/enter_phone_number"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="@color/white"
         app:boxStrokeWidthFocused="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/country_code"
         app:layout_constraintStart_toEndOf="@+id/country_code"
@@ -30,6 +31,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phoneNumberEditText"
             android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:maxLength="10" />
@@ -56,7 +59,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="10dp"
         android:text="@string/terms_and_conditions"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -68,7 +71,7 @@
         android:layout_marginBottom="10dp"
         android:textStyle="bold"
         android:text="@string/privacy_policy"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -79,7 +82,7 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="84dp"
         android:text="+91"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verification_direction_text" />
@@ -90,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="@string/enter_your_phone_number"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

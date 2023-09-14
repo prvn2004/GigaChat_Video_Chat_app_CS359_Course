@@ -3,9 +3,7 @@ package com.example.gigachat.authentication
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,25 +12,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.gigachat.MainActivity
 import com.example.gigachat.R
-import com.example.gigachat.Utlilities.Constants
-import com.example.gigachat.Utlilities.preferenceManagers.AuthenticationPreferenceManager
-import com.example.gigachat.Utlilities.preferenceManagers.UserProfilePreferenceManager
+import com.example.gigachat.utlilities.preferenceManagers.AuthenticationPreferenceManager
+import com.example.gigachat.utlilities.preferenceManagers.UserProfilePreferenceManager
 import com.example.gigachat.databinding.FragmentLoginBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class LoginFragment : Fragment() {
@@ -46,6 +34,11 @@ class LoginFragment : Fragment() {
     private lateinit var UserProfilePreferenceManager : UserProfilePreferenceManager
     private lateinit var progressDialog: ProgressDialog
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +51,8 @@ class LoginFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         progressDialog = ProgressDialog(requireActivity())
+
+//        createCacheFolder("GigaChat")
 
         binding.sendOtpButton.setOnClickListener {
             if (binding.acceptCheckBox.isChecked) {
@@ -108,6 +103,17 @@ class LoginFragment : Fragment() {
             }
         )
     }
+
+//    fun createCacheFolder(folderName: String): File {
+//        val cacheDir = File(requireContext().getExternalFilesDir(null), folderName)
+//        if (!cacheDir.exists()) {
+//            cacheDir.mkdirs()
+//        }
+//        Toast.makeText(requireContext(), cacheDir.toString(), Toast.LENGTH_SHORT).show()
+//        Log.d("hey", cacheDir.toString())
+//        return cacheDir
+//    }
+
 
     private fun NavigateToNextFragment() {
         val fragment = OtpFragment()

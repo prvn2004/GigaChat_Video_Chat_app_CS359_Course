@@ -48,6 +48,9 @@ dependencies {
     implementation libs.pinview
 
     implementation libs.circleimageview
+    implementation libs.okhttp
+    implementation libs.glide
+    annotationProcessor libs.compiler
 
     implementation libs.core.ktx
     implementation libs.appcompat

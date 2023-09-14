@@ -1,4 +1,4 @@
-package com.example.gigachat.Utlilities.preferenceManagers
+package com.example.gigachat.utlilities.preferenceManagers
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -37,10 +37,18 @@ class AuthenticationPreferenceManager(context: Context){
         editor.apply()
     }
 
-    fun clearAllAuthPreferences(){
-        editor.remove("Current_Auth_Status")
-        editor.remove("Current_Profile_Status")
-        editor.remove("User_Phone_Number")
-        editor.apply()
+    fun clearAllAuthPreferences(
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
+        try {
+            editor.remove("Current_Auth_Status")
+            editor.remove("Current_Profile_Status")
+            editor.apply()
+            onSuccess() // Call the onSuccess callback
+        } catch (e: Exception) {
+            onFailure() // Call the onFailure callback if an exception occurs
+        }
     }
+
 }
