@@ -9,10 +9,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.serialization.Serializable
 
-@IgnoreExtraProperties
-@Serializable
 @kotlinx.parcelize.Parcelize
-@Entity
 data class Message(
     @PrimaryKey
     val createdAt: Long, var deliveryTime: Long=0L,
@@ -29,25 +26,15 @@ data class Message(
     var fileMessage: FileMessage?=null,
     var chatUsers: ArrayList<String>?=null,
     @set:Exclude @get:Exclude
-    var chatUserId: String?=null): Parcelable
-
-@Serializable
+    var chatUserId: String?=null) : Parcelable
 @kotlinx.parcelize.Parcelize
-data class TextMessage(val text: String?=null): Parcelable
-
-@Serializable
+data class TextMessage(val text: String?=null) : Parcelable
 @kotlinx.parcelize.Parcelize
-data class AudioMessage(var uri: String?=null,val duration: Int=0): Parcelable
-
-@Serializable
+data class AudioMessage(var uri: String?=null,val duration: Int=0) : Parcelable
 @kotlinx.parcelize.Parcelize
-data class ImageMessage(var uri: String?=null,var imageType: String="image"): Parcelable
-
-@Serializable
+data class ImageMessage(var uri: String?=null,var imageType: String="image") : Parcelable
 @kotlinx.parcelize.Parcelize
-data class VideoMessage(val uri: String?=null,val duration: Int=0): Parcelable
-
-@Serializable
+data class VideoMessage(val uri: String?=null,val duration: Int=0) : Parcelable
 @kotlinx.parcelize.Parcelize
 data class FileMessage(val name: String?=null,
-                       val uri: String?=null,val duration: Int=0): Parcelable
+                       val uri: String?=null,val duration: Int=0) : Parcelable

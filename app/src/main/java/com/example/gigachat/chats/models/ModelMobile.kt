@@ -8,4 +8,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Parcelize
 data class ModelMobile(
-    var country: String="", var number: String=""): Parcelable
+    var number: String=""): Parcelable

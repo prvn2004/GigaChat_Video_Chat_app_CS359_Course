@@ -12,10 +12,10 @@ import kotlinx.serialization.Serializable
 @Parcelize
 data class UserProfile(var uId: String?=null,var createdAt: Long?=null,
                        var updatedAt: Long?=null,
-                       var image: String="", var userName: String="",
-                       var about: String="",
+                       var ProfileImage: String="", var UserName: String="",
+                       var UserBio: String="",
                        var token :String="",
-                       var mobile: ModelMobile?=null,
+                       var Phone: ModelMobile?=null,
                        @get:PropertyName("device_details")
                        @set:PropertyName("device_details")
                        var deviceDetails: ModelDeviceDetails?=null) : Parcelable

@@ -6,11 +6,8 @@ import androidx.room.PrimaryKey
 import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.serialization.Serializable
 
-@IgnoreExtraProperties
-@Serializable
 @kotlinx.parcelize.Parcelize
-@Entity
-data class GroupMessage(@PrimaryKey
+data class GroupMessage(
                         val createdAt: Long, var groupId: String,
                         val from: String, val to: ArrayList<String>,
                         val senderName: String,
@@ -23,4 +20,5 @@ data class GroupMessage(@PrimaryKey
                         var imageMessage: ImageMessage?=null,
                         var audioMessage: AudioMessage?=null,
                         var videoMessage: VideoMessage?=null,
-                        var fileMessage: FileMessage?=null): Parcelable
+                        var fileMessage: FileMessage?=null) : Parcelable
+
