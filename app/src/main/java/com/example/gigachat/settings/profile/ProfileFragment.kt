@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.example.gigachat.R
 import com.example.gigachat.utlilities.userManagers.UserGetters
@@ -180,10 +182,16 @@ class ProfileFragment : Fragment() {
         binding.UserBio.text = userGetter.getBio().toString()
         binding.UserPhone.text = userGetter.getPhone().toString()
 
-        Glide.with(requireContext())
-            .load(userGetter.getImage())
-            .placeholder(R.drawable.camera_logo)
-            .into(binding.profileImage)
+//        Glide.with(requireContext())
+//            .load(userGetter.getImage())
+//            .placeholder(R.drawable.camera_logo)
+//            .into(binding.profileImage)
+
+        binding.profileImage.load(userGetter.getImage()) {
+            crossfade(true)
+            placeholder(R.drawable.camera_logo)
+            transformations(CircleCropTransformation())
+        }
 
     }
 

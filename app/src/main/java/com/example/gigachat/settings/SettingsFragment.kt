@@ -9,6 +9,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.example.gigachat.R
 import com.example.gigachat.settings.account.AccountFragment
@@ -102,10 +104,16 @@ class SettingsFragment : Fragment() {
         binding.profileName.text = userGetter.getName().toString()
         binding.profileBio.text = userGetter.getBio().toString()
 
-        Glide.with(requireContext())
-            .load(userGetter.getImage())
-            .placeholder(R.drawable.camera_logo)
-            .into(binding.profileImage)
+//        Glide.with(requireContext())
+//            .load(userGetter.getImage())
+//            .placeholder(R.drawable.camera_logo)
+//            .into(binding.profileImage)
+
+        binding.profileImage.load(userGetter.getImage()) {
+            crossfade(true)
+            placeholder(R.drawable.camera_logo)
+            transformations(CircleCropTransformation())
+        }
     }
 
     private fun NavigateToNextFragment(fragment: Fragment) {
