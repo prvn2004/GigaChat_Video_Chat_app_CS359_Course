@@ -18,7 +18,7 @@ class ChatsFragment : Fragment() {
         binding = FragmentChatsBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        
+
 
         return view
     }
