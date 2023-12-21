@@ -11,7 +11,6 @@ import com.example.gigachat.databinding.FragmentCallsBinding
 class CallsFragment : Fragment() {
 
     private lateinit var binding: FragmentCallsBinding
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

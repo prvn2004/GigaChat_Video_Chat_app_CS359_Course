@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.0-alpha04"
+agp = "8.3.0-alpha05"
 circleimageview = "3.1.0"
 coil = "2.4.0"
 coil-gif = "1.0.0"
@@ -29,6 +29,7 @@ play-services-auth = "20.6.0"
 shimmer = "0.5.0"
 timber = "5.0.1"
 ucrop = "2.2.7"
+work-runtime-ktx = "2.8.1"
 
 [libraries]
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
@@ -36,6 +37,7 @@ androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref =
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt-work" }
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil-gif" }

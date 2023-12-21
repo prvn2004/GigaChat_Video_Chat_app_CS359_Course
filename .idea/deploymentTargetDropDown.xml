@@ -2,12 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ChatExternalModule">
-        <State />
-      </entry>
-      <entry key="Gigachat [signingReport]">
-        <State />
-      </entry>
       <entry key="app">
         <State />
       </entry>

@@ -9,10 +9,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 object UserUtils {
-
-    fun queryContacts() {
-        val listOfContacts= mutableListOf<String>()
-        listOfContacts.add("9500552211")
+    suspend fun queryContacts(): List<ChatUser> {
+        val listOfContacts = mutableListOf<String>()
+        listOfContacts.add("7339988327")
         listOfContacts.add("9500552212")
         listOfContacts.add("9500552213")
         listOfContacts.add("9500552214")
@@ -25,35 +24,39 @@ object UserUtils {
         listOfContacts.add("9500552221")
 
         val subLists: List<List<String>> = listOfContacts.chunked(size = 10)
-        ContactsQuery.totalQueryCount=subLists.size
-        val contactQuery= ContactsQuery()
-        for(index in subLists.indices)
-            contactQuery.makeQuery(index,ArrayList(subLists[index]), onQueryListener)
-    }
+        ContactsQuery.totalQueryCount = subLists.size
+        val contactQuery = ContactsQuery()
 
-    private val onQueryListener=object : QueryListener {
-        override fun onCompleted(queriedList: ArrayList<UserProfile>) {
-            try {
-                Timber.v("onQueryCompleted ${queriedList.size}")
-                val localDeviceContacts= fetchLocalDeviceContacts()
-                val finalList = ArrayList<ChatUser>()
-                CoroutineScope(Dispatchers.IO).launch {
-                    for(doc in queriedList){
-                        val savedNumber=localDeviceContacts.first { it.mobile == doc.Phone!!.number}
-                        val chatUser=getChatUser(doc,savedNumber.name)
-                        finalList.add(chatUser)
+        val finalList = ArrayList<ChatUser>()
+
+        for (index in subLists.indices) {
+            contactQuery.makeQuery(index, ArrayList(subLists[index]), object : QueryListener {
+                override fun onCompleted(queriedList: ArrayList<UserProfile>) {
+                    try {
+                        Timber.v("onQueryCompleted ${queriedList.size}")
+                        val localDeviceContacts = fetchLocalDeviceContacts()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            for (doc in queriedList) {
+                                val savedNumber = localDeviceContacts.firstOrNull { it.mobile == doc.Phone?.number }
+                                savedNumber?.let {
+                                    val chatUser = getChatUser(doc, it.name)
+                                    finalList.add(chatUser)
+                                }
+                            }
+                            setDefaultValues()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-                    setDefaultValues()
-
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+
+                override fun onStart(position: Int, contactBatch: ArrayList<String>) {
+                    Timber.v("onQueryStart pos: $position inputs: ${contactBatch.size}")
+                }
+            })
         }
 
-        override fun onStart(position: Int, contactBatch: ArrayList<String>) {
-            Timber.v("onQueryStart pos: $position inputs: ${contactBatch.size}")
-        }
+        return finalList
     }
 
     fun getChatUser(
@@ -64,12 +67,12 @@ object UserUtils {
 
     fun fetchLocalDeviceContacts(): List<Contact> {
         val dummyContacts=ArrayList<Contact>()
-        dummyContacts.add(Contact("Arthur","9500112233"))
-        dummyContacts.add(Contact("Arthur1","9500112232"))
-        dummyContacts.add(Contact("Arthur2","9500112235"))
-        dummyContacts.add(Contact("Arthur3","9500112236"))
-        dummyContacts.add(Contact("Arthur4","9500112237"))
-        dummyContacts.add(Contact("Arthur5","9500112238"))
+        dummyContacts.add(Contact("Arthur","7339988327"))
+        dummyContacts.add(Contact("Arthur1","9500552212"))
+        dummyContacts.add(Contact("Arthur2","9500552213"))
+        dummyContacts.add(Contact("Arthur3","9500552214"))
+        dummyContacts.add(Contact("Arthur4","9500552215"))
+        dummyContacts.add(Contact("Arthur5","9500552216"))
         return dummyContacts
     }
 
@@ -79,7 +82,4 @@ object UserUtils {
         ContactsQuery.currentQueryCount =0
         ContactsQuery.queriedList.clear()
     }
-
-
-
 }

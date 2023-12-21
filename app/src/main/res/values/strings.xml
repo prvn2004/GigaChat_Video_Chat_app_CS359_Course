@@ -89,4 +89,5 @@
     <string name="txt_cancel">Cancel</string>
     <string name="txt_ok">Ok</string>
     <string name="txt_take_video">Take Video</string>
+    <string name="todo">TODO</string>
 </resources>
