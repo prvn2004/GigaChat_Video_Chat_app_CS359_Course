@@ -42,12 +42,14 @@ class UserprofileInitialisationFragment : Fragment() {
 
     private lateinit var binding: FragmentUserprofileInitialisationBinding
 
+
     private var firestore = FirebaseFirestore.getInstance()
     private var firebaseAuth = FirebaseAuth.getInstance()
 
     private lateinit var progressDialog: ProgressDialog
 
     val PICK_IMAGE_REQUEST = 101
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

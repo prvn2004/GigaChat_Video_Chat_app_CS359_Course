@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     id 'com.google.gms.google-services'
 }
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace 'com.example.gigachat'
@@ -14,6 +17,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     buildFeatures {
@@ -45,12 +49,31 @@ dependencies {
     implementation libs.play.services.auth
     implementation libs.firebase.auth.ktx
 
+    implementation(libs.coil)
+    implementation(libs.kotlinx.serialization.json)
+    implementation libs.hilt.android
+    implementation libs.firebase.messaging.ktx
+    implementation libs.androidx.baseLibrary//don't upgrade unless same version of kapt availale
+    kapt libs.hilt.android.compiler
+    implementation libs.androidx.hilt.work
+    kapt libs.androidx.hilt.compiler
+    implementation libs.timber
+    implementation libs.lottie
+    implementation(libs.coil.gif)
+//    implementation libs.androidx.datastore.preferences
+    implementation(libs.kotlinx.serialization.json)
+
     implementation libs.pinview
 
     implementation libs.circleimageview
     implementation libs.okhttp
     implementation libs.glide
+    implementation libs.androidx.room.common
+    implementation libs.androidx.room.ktx
     annotationProcessor libs.compiler
+    implementation libs.androidx.multidex
+
+    implementation libs.androidx.work.runtime.ktx
 
     implementation libs.core.ktx
     implementation libs.appcompat

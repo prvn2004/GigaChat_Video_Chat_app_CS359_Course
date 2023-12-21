@@ -27,57 +27,13 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
-        val viewPager: ViewPager2 = binding.viewPager
-        val tabLayout: TabLayout = binding.tabLayout
-
-        val adapter = FragmentAdapter(this)
-        viewPager.adapter = adapter
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "Chats"
-                1 -> "Calls"
-                else -> ""
-            }
-        }.attach()
+        showFragment(MainFragment())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_item_newGrp -> {
-
-                return true
-            }
-            R.id.action_item_settings -> {
-
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-}
-
-class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount(): Int {
-        return 2
-    }
-
-    override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> ChatsFragment()
-            1 -> CallsFragment()
-            else -> ChatsFragment()
-        }
+    fun showFragment(fragment: Fragment) {
+        val fram = supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+        fram.replace(R.id.mainActivityContainer, fragment)
+        fram.commit()
     }
 }
